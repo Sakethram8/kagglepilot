@@ -1,0 +1,171 @@
+{
+  "name": "kagglepilot",
+  "displayName": "Kaggle Pilot",
+  "description": "A VS Code extension for a complete Kaggle workflow, from competitions and datasets to a full notebook development cycle.",
+  "version": "0.1.0",
+  "publisher": "HyperSonic",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Sakethram8/kagglepilot.git"
+  },
+  "icon": "images/icon.png",
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "categories": [
+    "Data Science",
+    "Machine Learning",
+    "Education"
+  ],
+  "main": "./dist/extension.js",
+  "activationEvents": [
+    "onCommand:kagglepilot.setCredentials",
+    "onCommand:kagglepilot.downloadCompetition",
+    "onCommand:kagglepilot.pullNotebook",
+    "onCommand:kagglepilot.pushNotebook",
+    "onCommand:kagglepilot.getNotebookStatus",
+    "onCommand:kagglepilot.getNotebookOutput",
+    "onCommand:kagglepilot.configureNotebook",
+    "onCommand:kagglepilot.watchNotebook",
+    "onCommand:kagglepilot.downloadDataset",
+    "onCommand:kagglepilot.searchDatasets",
+    "onCommand:kagglepilot.initNotebook"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "kagglepilot.setCredentials",
+        "title": "Kaggle: Set API Credentials"
+      },
+      {
+        "command": "kagglepilot.downloadCompetition",
+        "title": "Download Competition Data",
+        "icon": "$(cloud-download)"
+      },
+      {
+        "command": "kagglepilot.pullNotebook",
+        "title": "Pull Notebook to Workspace",
+        "icon": "$(cloud-download)"
+      },
+      {
+        "command": "kagglepilot.pushNotebook",
+        "title": "Push Notebook to Kaggle...",
+        "icon": "$(cloud-upload)"
+      },
+      {
+        "command": "kagglepilot.getNotebookStatus",
+        "title": "Get Notebook Status",
+        "icon": "$(sync)"
+      },
+      {
+        "command": "kagglepilot.getNotebookOutput",
+        "title": "Get Notebook Output",
+        "icon": "$(folder-download)"
+      },
+      {
+        "command": "kagglepilot.configureNotebook",
+        "title": "Configure Kaggle Notebook...",
+        "icon": "$(settings-gear)"
+      },
+      {
+        "command": "kagglepilot.watchNotebook",
+        "title": "Watch Notebook Run",
+        "icon": "$(watch)"
+      },
+      {
+        "command": "kagglepilot.downloadDataset",
+        "title": "Download Dataset",
+        "icon": "$(folder-download)"
+      },
+      {
+        "command": "kagglepilot.searchDatasets",
+        "title": "Kaggle: Search Datasets..."
+      },
+      {
+        "command": "kagglepilot.initNotebook",
+        "title": "Initialize New Kaggle Notebook",
+        "icon": "$(new-file)"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "kaggle-pilot-sidebar",
+          "title": "Kaggle",
+          "icon": "images/kaggle-logo.svg"
+        }
+      ]
+    },
+    "views": {
+      "kaggle-pilot-sidebar": [
+        {
+          "id": "kaggleCompetitions",
+          "name": "Competitions"
+        },
+        {
+          "id": "kaggleNotebooks",
+          "name": "My Notebooks"
+        },
+        {
+          "id": "kaggleDatasets",
+          "name": "Datasets"
+        }
+      ]
+    },
+    "menus": {
+      "view/title": [
+        {
+          "command": "kagglepilot.initNotebook",
+          "when": "view == kaggleNotebooks",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "kagglepilot.downloadCompetition",
+          "when": "view == kaggleCompetitions && viewItem == competition",
+          "group": "navigation"
+        },
+        {
+          "command": "kagglepilot.pullNotebook",
+          "when": "view == kaggleNotebooks && viewItem == notebook",
+          "group": "navigation"
+        },
+        {
+          "command": "kagglepilot.getNotebookStatus",
+          "when": "view == kaggleNotebooks && viewItem == notebook",
+          "group": "navigation@2"
+        },
+        {
+          "command": "kagglepilot.watchNotebook",
+          "when": "view == kaggleNotebooks && viewItem == notebook",
+          "group": "navigation@3"
+        },
+        {
+          "command": "kagglepilot.getNotebookOutput",
+          "when": "view == kaggleNotebooks && viewItem == notebook",
+          "group": "navigation@4"
+        },
+        {
+          "command": "kagglepilot.downloadDataset",
+          "when": "view == kaggleDatasets && viewItem == dataset",
+          "group": "navigation"
+        }
+      ],
+      "editor/title/context": [
+        {
+          "command": "kagglepilot.pushNotebook",
+          "when": "resourceExtname == .ipynb",
+          "group": "navigation"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "kagglepilot.configureNotebook",
+          "when": "resourceBasename == kernel-metadata.json",
+          "group": "navigation"
+        }
+      ]
+    }
+  }
+}
